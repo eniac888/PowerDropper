@@ -26,6 +26,8 @@ namespace Powerdropper
             src = src.Replace(config.GetReplacementName("ApplicationData"), config.ApplicationData);
             src = src.Replace(config.GetReplacementName("TargetUri"), config.TargetUri);
 
+            File.WriteAllText("debug-1.txt", src);
+
             LoaderConfig loader_config = new LoaderConfig();
             loader_config.MethodName = config.MethodName;
             loader_config.Namespace = config.Namespace;
@@ -37,6 +39,8 @@ namespace Powerdropper
             loader = loader.Replace(loader_config.GetReplacementName("Namespace"), loader_config.Namespace);
             loader = loader.Replace(loader_config.GetReplacementName("Base64Data"), loader_config.Base64Data);
             loader = loader.Replace(loader_config.GetReplacementName("Classname"), loader_config.Classname);
+
+            File.WriteAllText("debug-2.txt", loader);
 
             return loader;
         }

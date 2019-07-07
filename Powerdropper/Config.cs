@@ -15,7 +15,7 @@ namespace Powerdropper
         [Replacement(Name = "Dropper")]
         public string Classname;
 
-        [Replacement(Name = "Run")]
+        [Replacement(Name = "StarterMethod")]
         public string MethodName;
 
         [Replacement(Name = "loadApplication")]
